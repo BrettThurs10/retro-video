@@ -1,23 +1,37 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react'
 import './App.css';
+import Header from './Header'
+import FeaturedMovies from './FeaturedMovies'
 
-function App() {
+const APIKEY = '3585210653285f5893d87d7328bced74';
+const imageBase = 'http://image.tmdb.org/t/p'
+const imageSize = '/original'
+
+ function App() {
+  const [data, setData] = useState('');
+  const [poster, setPoster] = useState(null)
+  async function getPopularMovies(){
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKEY}&primary_release_year=1984&sort_by=popularity.desc`
+
+    await fetch(url).then(response => response.json())
+    .then(data=>{setPoster(imageBase+imageSize+data.results[0].backdrop_path); console.log(data.results[0]); setData(data)})
+  }
+
+  async function init(){
+  await getPopularMovies();
+  }
+
+ useEffect( () => {
+  init()
+ }, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <div style={{backgroundImage: `url(${poster})`}} className="bg-cover rounded flex w-full h-screen">
+      </div>
+      <FeaturedMovies data={data} />
     </div>
   );
 }
