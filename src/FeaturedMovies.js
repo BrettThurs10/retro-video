@@ -6,16 +6,22 @@ const imageBase = 'http://image.tmdb.org/t/p'
 const imageSize = '/w500'
 
 function getPosterURL(data, index){
-    console.log(data)
+    // console.log(data)
     return `${imageBase}${imageSize}${data.poster_path}`
 }
 
-
 function getFeaturedMovieItem(data, index){
+
     return(
-        <img
-          className="w-24 h-38 mx-1 rounded shadow-lg"
-          src={getPosterURL(data, index)} />
+
+ <div
+        style={{
+            backgroundImage: `url(${getPosterURL(data, index)})`}}
+        className="transform hover:-translate-y-7 cursor-pointer bg-red-500 transition ease-out duration-200 w-32 h-48 m-1 rounded-sm shadow-lg bg-cover relative hover:border vidTape"
+           >
+           </div>
+
+
     )
 }
 
@@ -28,15 +34,18 @@ function returnFeaturedMovies(data){
 
 function FeaturedMovies(props) {
     const data = props.data
-    console.log(props.data.results)
     return (
-        <div className=" w-full absolute bottom-0 overflow-x-scroll">
-          {data &&
-            <div className="flex flex-row">
+        <>
+
+        <div className="w-screen overflow-scroll">
+
+          {data.results &&
+            <div style={{width: '2800px'}} className="p-8 flex">
                 {returnFeaturedMovies(data.results)}
                 </div>
             }
         </div>
+        </>
     )
 }
 
