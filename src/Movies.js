@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 import PropTypes from 'prop-types'
 const APIKEY = '3585210653285f5893d87d7328bced74';
@@ -11,27 +17,8 @@ function getPosterURL(data, index){
     return `${imageBase}${imageSize}${data.poster_path}`
 }
 
-function getMovieItem(data, index){
-
-    return(
-
- <div
-        style={{
-            backgroundImage: `url(${getPosterURL(data, index)})`}}
-        className="transform scale-100 hover:scale-110 cursor-pointer bg-gray-300 transition ease-out duration-200 w-32 h-48 m-1 rounded-sm shadow-lg bg-cover relative hover:border vidTape"
-           >
-           </div>
 
 
-    )
-}
-
-function returnMovies(data){
-    console.log(data)
-    let featuredMovieArr = []
-    data.map((x,index)=>featuredMovieArr.push(getMovieItem(x,index)))
-    return featuredMovieArr
-}
 
 
 
@@ -47,6 +34,29 @@ function Movies(props) {
 useEffect(() => {
  getPopularMovies(props.year)
 }, [])
+
+
+function getMovieItem(data, index){
+    console.log(data)
+    const title = data?.title.replace(/\s/g, "-").toLowerCase()
+    return(
+
+ <Link to={`/${title}`}
+        style={{
+            backgroundImage: `url(${getPosterURL(data, index)})`}}
+        className="transform scale-100 hover:scale-110 cursor-pointer bg-gray-300 transition ease-out duration-200 w-32 h-48 m-1 rounded-sm shadow-lg bg-cover relative hover:border vidTape"
+        onClick={()=>props.setActiveData(data)}
+           >
+           </Link>
+    )
+}
+
+function returnMovies(data, setActiveData){
+    let featuredMovieArr = []
+    data.map((x,index)=>featuredMovieArr.push(getMovieItem(x,index, setActiveData)))
+    return featuredMovieArr
+}
+
     return (
         <div id={props.year} className="border-t border-indigo-900 bg-gray-900 h-80">
       <button class="flex w-screen px-10 py-3 text-green-500 text-xl gugi items-center hover:bg-indigo-900 group">
@@ -59,7 +69,7 @@ useEffect(() => {
 
           {data.results &&
             <div style={{width: '3000px'}} className="py-4 px-8 flex bg-gray-900">
-                {returnMovies(data.results)}
+                {returnMovies(data.results, props.setActiveData)}
                 </div>
             }
         </div>

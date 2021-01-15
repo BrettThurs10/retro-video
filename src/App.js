@@ -5,7 +5,15 @@ import FeaturedMovies from "./FeaturedMovies";
 import Movies from "./Movies";
 import FeaturedMovie from "./components/FeaturedMovie";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import Details from './Details'
 import Nav from './components/Nav'
+import ReactDOM from "react-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import * as utils from './assets/utils'
 
 const APIKEY = "3585210653285f5893d87d7328bced74";
@@ -24,6 +32,7 @@ function App() {
   const [data, setData] = useState("");
   const [poster, setPoster] = useState(null);
   const [featuredYear, setFeaturedYear] = useState(featuredYr);
+  const [activeData, setActiveData] = useState('')
 
   async function getPopularMovies(year, index) {
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKEY}&primary_release_year=${year}&sort_by=revenue.desc`;
@@ -57,19 +66,15 @@ function App() {
     let counter = minYear;
     let movieArr = [];
     for (let index = counter; index < maxYear; index++) {
-      movieArr.push(<Movies year={index} />);
+      movieArr.push(<Movies year={index} setActiveData={(obj)=>setActiveData(obj)} />);
     }
     return movieArr;
   }
-  return (
-    <div className="App flex w-full flex-row bg-gray-900 overflow-x-hidden">
-      <div className="flex min-w-44 w-1/6 bg-black">
-        <div className="flex fixed h-full w-1/6">
-          <Nav />
-        </div>
-      </div>
-      <div className="flex flex-col w-5/6 transition duration-200 bg-gray-900">
-        {data && <FeaturedMovie featuredYear={featuredYear} data={data.results[featuredIndex]} poster={poster} />}
+
+  function Home(){
+return(
+  <>
+      {data ? <FeaturedMovie featuredYear={featuredYear} data={data.results[featuredIndex]} poster={poster} setActiveData={(obj)=>setActiveData(obj)} /> : <div className="h-72 w-full bg-purple-900"></div>}
         <div className="border-green-500 border-b border-t flex flex-row w-full justify-center px-5 py-2 text-sm shadow-lg bg-gray-900">
 <div className="flex flex-row justify-between w-1/2">
 <p className={styles.filter}>Popular</p>
@@ -79,11 +84,34 @@ function App() {
 <p className={styles.filter}>Horror</p>
 </div>
         </div>
-        {returnMovies()}
-        </div>
+        {data && returnMovies()}
+  </>
+)
+  }
 
+  return (
+    <Router>
+    <div className="App flex w-full flex-row bg-gray-900 overflow-x-hidden">
+      <div className="flex min-w-44 w-1/6 bg-black">
+        <div className="flex fixed h-full w-1/6">
+          <Nav />
+        </div>
+      </div>
+      <div className="flex flex-col w-5/6 transition duration-200 bg-gray-900">
+      <Switch>
+      <Route path="/:id" render={(props)=> <Details {...props} data={activeData}/>}>
+          </Route>
+      <Route  path="/">
+          <Home />
+          </Route>
+
+
+        </Switch>
+        </div>
     </div>
+    </Router>
   );
 }
+
 
 export default App;

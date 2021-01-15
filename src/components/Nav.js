@@ -1,6 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {icons} from '../assets/utils'
+import ReactDOM from "react-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 const menuItems = [
     {
@@ -34,11 +41,11 @@ function returnMenuItems(){
     menuItems.map(x=>{
         console.log(x.icon)
         items.push(
-            <a href={x.link}>
+            <Link to={x.link}>
             <li className="active:bg-gray-800 hover:bg-gray-800 flex flex-row text-yellow-200 hover:text-red-300 transition duration-200 text-sm items-center py-3 pl-5">
             <span className="transform scale-75">{x.icon}</span><p className="pl-1">{x.title}</p>
         </li>
-        </a>
+        </Link>
         )
     })
     return items
@@ -52,7 +59,7 @@ function Nav(props) {
          <div className="p-5">
         <div className="flex flex-row border-b pb-1 border-green-500 items-center">
         <div className="text-green-400">{icons.film}</div>
-         <h1 className="gugi text-green-400 text-xl uppercase">  Retro Video </h1>
+         <Link to="/" className="gugi text-green-400 text-xl uppercase">  Retro Video </Link>
         </div>
 
             <p className="text-yellow-300 text-sm pt-2">

@@ -3,6 +3,13 @@ import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import * as utils from "../assets/utils.js"
+import ReactDOM from "react-dom";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 import Loader from './Loader';
 
 const randomYear = () => Math.floor(Math.random() * (20 - 1 + 1)) + 1;
@@ -47,8 +54,13 @@ function FeaturedMovie(props) {
     utils.getRating(data.id, region, (val) => loader(val))
   }, [])
 
+  const title = data?.title.replace(/\s/g, "-").toLowerCase()
+
   return (
-    <div className="flex flex-row w-full h-72 text-left bg-center cursor-pointer bg-purple-900 hover:bg-blue-900 duration-200 transition ease-in-out">
+    <Link
+    to={`/${title}`} className="flex flex-row w-full h-72 text-left bg-center cursor-pointer bg-purple-900 hover:bg-blue-900 duration-200 transition ease-in-out h-72"
+    onClick={()=>props.setActiveData(data)}
+    >
       {/* <div  className="shadow-lg border border-gray-800 bg-center bg-cover rounded-lg flex w-72 pb-40 relative h-72"></div> */}
 
       <div className="flex flex-col pl-4 w-1/4 m-5 justify-center relative">
@@ -77,7 +89,7 @@ function FeaturedMovie(props) {
       </div>
 
 
-    </div>
+    </Link>
   );
 }
 
