@@ -48,8 +48,13 @@ useEffect(() => {
  getPopularMovies(props.year)
 }, [])
     return (
-        <div id={props.year} className="border-t border-indigo-900 bg-gray-900 h-72">
-      <button class="flex px-10 py-3 text-purple-400 text-xl gugi items-center hover:bg-indigo-900">{props.year}<DoubleArrowIcon style={{marginLeft: '5px'}} fontSize="medium"/></button>
+        <div id={props.year} className="border-t border-indigo-900 bg-gray-900 h-80">
+      <button class="flex w-screen px-10 py-3 text-green-500 text-xl gugi items-center hover:bg-indigo-900 group">
+      {props.year}
+      <div className="transform transition duration-200 group-hover:translate-x-20">
+          <DoubleArrowIcon style={{marginLeft: '5px'}} fontSize="large"/>
+          </div>
+      </button>
         <div className="w-screen overflow-scroll">
 
           {data.results &&

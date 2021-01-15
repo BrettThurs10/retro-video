@@ -16,6 +16,10 @@ const maxYear = 1999;
 const featuredYr = utils.numFromRange(minYear, maxYear)
 const featuredIndex = utils.numFromRange(1,20)
 
+const styles ={
+  filter: 'text-green-500 cursor-pointer active:text-indigo-900 active:bg-yellow-300 hover:bg-yellow-300 hover:text-black px-3 py-2 transition duration-200 rounded-md'
+}
+
 function App() {
   const [data, setData] = useState("");
   const [poster, setPoster] = useState(null);
@@ -66,6 +70,15 @@ function App() {
       </div>
       <div className="flex flex-col w-5/6 transition duration-200 bg-gray-900">
         {data && <FeaturedMovie featuredYear={featuredYear} data={data.results[featuredIndex]} poster={poster} />}
+        <div className="border-green-500 border-b border-t flex flex-row w-full justify-center px-5 py-2 text-sm shadow-lg bg-gray-900">
+<div className="flex flex-row justify-between w-1/2">
+<p className={styles.filter}>Popular</p>
+<p className={styles.filter}>Comedy</p>
+<p className={styles.filter}>Action/Adventure</p>
+<p className={styles.filter}>Romance</p>
+<p className={styles.filter}>Horror</p>
+</div>
+        </div>
         {returnMovies()}
         </div>
 

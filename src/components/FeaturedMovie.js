@@ -48,7 +48,7 @@ function FeaturedMovie(props) {
   }, [])
 
   return (
-    <div className="flex flex-row w-full h-72 text-left bg-center cursor-pointer bg-gray-900 hover:bg-indigo-900 duration-200 transition ease-in-out border-b border-green-500">
+    <div className="flex flex-row w-full h-72 text-left bg-center cursor-pointer bg-purple-900 hover:bg-blue-900 duration-200 transition ease-in-out">
       {/* <div  className="shadow-lg border border-gray-800 bg-center bg-cover rounded-lg flex w-72 pb-40 relative h-72"></div> */}
 
       <div className="flex flex-col pl-4 w-1/4 m-5 justify-center relative">
