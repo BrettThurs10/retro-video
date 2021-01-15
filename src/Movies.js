@@ -37,7 +37,6 @@ function returnMovies(data){
 
 function Movies(props) {
     const [data, setData] = useState('')
-
     async function getPopularMovies(year){
         const url = `https://api.themoviedb.org/3/discover/movie?api_key=${APIKEY}&primary_release_year=${year}&sort_by=revenue.desc`
         await fetch(url).then(response => response.json())
@@ -47,10 +46,9 @@ function Movies(props) {
 
 useEffect(() => {
  getPopularMovies(props.year)
-document.getElementById(props.year).scrollLeft = 100
 }, [])
     return (
-        <div id={props.year} className="border-t border-indigo-900 bg-gray-900">
+        <div id={props.year} className="border-t border-indigo-900 bg-gray-900 h-72">
       <button class="flex px-10 py-3 text-purple-400 text-xl gugi items-center hover:bg-indigo-900">{props.year}<DoubleArrowIcon style={{marginLeft: '5px'}} fontSize="medium"/></button>
         <div className="w-screen overflow-scroll">
 

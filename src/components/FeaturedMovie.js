@@ -18,7 +18,7 @@ const playButton = <PlayCircleOutlineIcon fontSize="large" style={{ color: "whit
 
 
 function FeaturedMovie(props) {
-  const data = props.data.results[0];
+  const data = props.data;
   const poster = props.poster;
   const featuredYear = props.featuredYear;
   const region = 'US';
@@ -45,7 +45,7 @@ function FeaturedMovie(props) {
 
   useEffect( () => {
     utils.getRating(data.id, region, (val) => loader(val))
-  })
+  }, [])
 
   return (
     <div className="flex flex-row w-full h-72 text-left bg-center cursor-pointer bg-gray-900 hover:bg-indigo-900 duration-200 transition ease-in-out border-b border-green-500">
@@ -71,7 +71,7 @@ function FeaturedMovie(props) {
        {returnSpinner()}
         <div
         style={{ backgroundImage: `url(${poster})` }}
-        className={`shadow-lg border border-green-500 transform scale-90 hover:scale-100 relative z-0 flex bg-cover bg-top h-full w-full justify-center items-center overflow-hidden relative transition duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`rounded-lg shadow-sm border border-green-500 transform scale-90 relative z-0 flex bg-cover bg-top h-full w-full justify-center items-center overflow-hidden relative transition-all duration-500 ease-in-out ${loaded ? 'opacity-100' : 'opacity-0'}`}
       >
       </div>
       </div>
