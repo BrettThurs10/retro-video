@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
 
 import PropTypes from 'prop-types'
 const APIKEY = '3585210653285f5893d87d7328bced74';
@@ -17,7 +18,7 @@ function getMovieItem(data, index){
  <div
         style={{
             backgroundImage: `url(${getPosterURL(data, index)})`}}
-        className="transform scale-100 hover:scale-110 cursor-pointer bg-red-500 transition ease-out duration-200 w-32 h-48 m-1 rounded-sm shadow-lg bg-cover relative hover:border vidTape"
+        className="transform scale-100 hover:scale-110 cursor-pointer bg-gray-300 transition ease-out duration-200 w-32 h-48 m-1 rounded-sm shadow-lg bg-cover relative hover:border vidTape"
            >
            </div>
 
@@ -46,20 +47,20 @@ function Movies(props) {
 
 useEffect(() => {
  getPopularMovies(props.year)
-
+document.getElementById(props.year).scrollLeft = 100
 }, [])
     return (
-        <>
-        <p className="text-left">{props.year}</p>
+        <div id={props.year} className="border-t border-indigo-900 bg-gray-900">
+      <button class="flex px-10 py-3 text-purple-400 text-xl gugi items-center hover:bg-indigo-900">{props.year}<DoubleArrowIcon style={{marginLeft: '5px'}} fontSize="medium"/></button>
         <div className="w-screen overflow-scroll">
 
           {data.results &&
-            <div style={{width: '2800px'}} className="p-8 flex">
+            <div style={{width: '3000px'}} className="py-4 px-8 flex bg-gray-900">
                 {returnMovies(data.results)}
                 </div>
             }
         </div>
-        </>
+        </div>
     )
 }
 
