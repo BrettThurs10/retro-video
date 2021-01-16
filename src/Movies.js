@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import DoubleArrowIcon from '@material-ui/icons/DoubleArrow';
+import * as utils from './assets/utils'
 import {
     BrowserRouter as Router,
     Switch,
@@ -37,7 +38,6 @@ useEffect(() => {
 
 
 function getMovieItem(data, index){
-    console.log(data)
     const title = data?.title.replace(/\s/g, "-").toLowerCase()
     return(
 

@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import * as utils from "../assets/utils.js"
 import ReactDOM from "react-dom";
+import Rating from '../components/Rating'
 import {
     BrowserRouter as Router,
     Switch,
@@ -35,6 +36,7 @@ function FeaturedMovie(props) {
   function loader(val){
     setRating(val)
     setLoaded(true)
+    data.rating = val
   }
 
   function returnSpinner(){
@@ -73,7 +75,7 @@ function FeaturedMovie(props) {
           Released {data.release_date}
         </p>
       <div className="flex flex-row items-center">
-      <p className="text-white border py-1 px-3 rounded mr-4">{rating}</p>
+<Rating rating={rating} />
         <div className="bg-green-400 h-9 w-9 justify-center flex items-center rounded-full">
         <p className="text-gray-700 text-sm">{percent(data.vote_average)}</p>
         </div>

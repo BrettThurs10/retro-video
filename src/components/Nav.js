@@ -39,7 +39,6 @@ const menuItems = [
 function returnMenuItems(){
     let items = []
     menuItems.map(x=>{
-        console.log(x.icon)
         items.push(
             <Link to={x.link}>
             <li className="active:bg-gray-800 hover:bg-gray-800 flex flex-row text-yellow-200 hover:text-red-300 transition duration-200 text-sm items-center py-3 pl-5">
@@ -63,7 +62,7 @@ function Nav(props) {
         </div>
 
             <p className="text-yellow-300 text-sm pt-2">
-        The raddest 80's and 90's movie website.
+        Dude, it's rad movies from the 80's and 90's.
             </p>
          </div>
             </div>

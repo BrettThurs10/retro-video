@@ -9,6 +9,31 @@ export  function getRating(movieID, region, callback){
   })
 }
 
+export const imageBase = 'http://image.tmdb.org/t/p'
+
+export function buildImgURL(size, path){
+return imageBase + '/' + size + path
+}
+
+export  function getProviders(movieID, region, callback){
+    const url = `https://api.themoviedb.org/3/movie/${movieID}/watch/providers?api_key=3585210653285f5893d87d7328bced74`
+    console.log(url)
+     fetch(url)
+  .then(response => response.json())
+  .then(data => {
+     if (data.results){
+        let array = []
+        let providers = data.results[region].rent
+        providers.map(
+            x => array.push(
+            <img className="w-6 h-6 mr-2" src={`${buildImgURL('original', x.logo_path)}`} />
+        ))
+        let row = <div className="flex flex-row">{array}</div>
+        callback(row)
+     }
+  })
+}
+
 export function numFromRange(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
